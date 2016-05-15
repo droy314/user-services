@@ -1,0 +1,15 @@
+# Eureka
+
+server:
+  port: 8761
+  tomcat:
+    max-threads: 4
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enable-self-preservation : false
+    

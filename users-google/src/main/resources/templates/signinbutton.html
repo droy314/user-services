@@ -1,0 +1,59 @@
+
+<script src="https://apis.google.com/js/api:client.js"></script>
+<div id="google-signin" class="btn-block"></div>
+<script>
+
+(function ($) {
+	
+	var apiKey = '{{apiKey}}';
+	var uri = '{{uri}}';
+	var redirectUri = '{{redirectUri}}';
+	var auth2 = null;
+	
+	$(function() {
+		gapi.load('auth2', function() {
+			initializeAuthApi();
+		});
+		gapi.load('signin2', renderSigninButton);
+	});
+	
+	
+	function renderSigninButton(){
+		gapi.signin2.render('google-signin',{
+			'theme': 'dark',
+			'longtitle' :true,
+			'width': $('#google-signin').width(),
+			'onsuccess' : onSignIn,
+			'onfailure' : onError
+		})
+	}
+	
+	function initializeAuthApi() {
+		auth2 = gapi.auth2.init({
+			client_id : apiKey
+		});
+		//auth2.attachClickHandler($('#google-signin')[0], {
+		//}, onSignIn, onError);
+	}
+
+	function onSignIn(googleUser) {
+		
+				
+		$.ajax({
+			  type: "POST",
+			  url: uri + '/verify',
+			  data: googleUser.getAuthResponse().id_token,
+			  dataType: 'text'
+			}).done(function (){
+				auth2.signOut();
+				alert('Successful');
+			});
+		
+	}
+	
+	function onError() {
+		alert('Failure occurred');
+	}
+})(jQuery);
+	
+</script>

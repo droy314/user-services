@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+
+</head>
+<body>
+
+	<div class="social-media-logins col-sm-3">
+		{{#each signinPanels}}
+		<div class="panel">{{{this}}}</div>
+		{{/each}}
+	</div>
+</body>
+</html>
