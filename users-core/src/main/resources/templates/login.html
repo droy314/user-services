@@ -17,8 +17,8 @@
 <body>
 
 	<div class="social-media-logins col-sm-3">
-		{{#each signinPanels}}
-		<div class="panel">{{{this}}}</div>
+		{{#each providers}}
+		<iframe src="/providers/{{name}}/signin-panel?uri=/providers/{{name}}&redirect_uri=/verified&state={{state}}" class="panel"></iframe>
 		{{/each}}
 	</div>
 </body>

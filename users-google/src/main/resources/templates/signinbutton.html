@@ -1,59 +1,58 @@
-
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <div id="google-signin" class="btn-block"></div>
 <script>
+	(function($) {
 
-(function ($) {
-	
-	var apiKey = '{{apiKey}}';
-	var uri = '{{uri}}';
-	var redirectUri = '{{redirectUri}}';
-	var auth2 = null;
-	
-	$(function() {
-		gapi.load('auth2', function() {
-			initializeAuthApi();
-		});
-		gapi.load('signin2', renderSigninButton);
-	});
-	
-	
-	function renderSigninButton(){
-		gapi.signin2.render('google-signin',{
-			'theme': 'dark',
-			'longtitle' :true,
-			'width': $('#google-signin').width(),
-			'onsuccess' : onSignIn,
-			'onfailure' : onError
-		})
-	}
-	
-	function initializeAuthApi() {
-		auth2 = gapi.auth2.init({
-			client_id : apiKey
-		});
-		//auth2.attachClickHandler($('#google-signin')[0], {
-		//}, onSignIn, onError);
-	}
+		var apiKey = '{{apiKey}}';
+		var uri = '{{uri}}';
+		var redirectUri = '{{redirectUri}}';
+		var state = '{{state}}';
+		var auth2 = null;
 
-	function onSignIn(googleUser) {
-		
-				
-		$.ajax({
-			  type: "POST",
-			  url: uri + '/verify',
-			  data: googleUser.getAuthResponse().id_token,
-			  dataType: 'text'
-			}).done(function (){
-				auth2.signOut();
-				alert('Successful');
+		$(function() {
+			gapi.load('auth2', function() {
+				initializeAuthApi();
 			});
-		
-	}
-	
-	function onError() {
-		alert('Failure occurred');
-	}
-})(jQuery);
-	
+			gapi.load('signin2', renderSigninButton);
+		});
+
+		function renderSigninButton() {
+			gapi.signin2.render('google-signin', {
+				'theme' : 'dark',
+				'longtitle' : true,
+				'width' : $('#google-signin').width(),
+				'onsuccess' : onSignIn,
+				'onfailure' : onError
+			})
+		}
+
+		function initializeAuthApi() {
+			auth2 = gapi.auth2.init({
+				client_id : apiKey
+			});
+		}
+
+		function onSignIn(googleUser) {
+
+			$.ajax({
+				type : "POST",
+				url : uri + '/verify',
+				data : googleUser.getAuthResponse().id_token,
+				dataType : 'text'
+			}).done(
+					function(response) {
+						auth2.signOut();
+						window.parent.location = redirectUri + "?u=" + response
+								+ "&state=" + state;
+						alert('Successful');
+					});
+
+		}
+
+		function onError() {
+			alert('Failure occurred');
+		}
+	})(jQuery);
 </script>
