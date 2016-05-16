@@ -46,6 +46,7 @@ public class AppConfig {
 		HandlebarsViewResolver vr = new HandlebarsViewResolver();
 		vr.setPrefix("classpath:/templates");
 		vr.setSuffix(".html");
+		vr.setFailOnMissingFile(false);
 		return vr;
 	}
 
