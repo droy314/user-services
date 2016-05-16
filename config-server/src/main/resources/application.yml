@@ -1,0 +1,18 @@
+# Config Server
+
+server:
+  port: 8888
+  tomcat:
+    max-threads: 4
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: file:///c:/workspaces/charon/config
+          
+          
