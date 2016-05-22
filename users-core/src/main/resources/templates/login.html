@@ -12,13 +12,14 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-
+<script
+	src="/render.js"></script>
 </head>
 <body>
 
 	<div class="social-media-logins col-sm-3">
 		{{#each providers}}
-		<iframe src="/providers/{{name}}/signin-panel?uri=/providers/{{name}}&redirect_uri=/verified&state={{state}}" class="panel"></iframe>
+		<iframe src="/providers/{{name}}/signin-panel?uri=/providers/{{name}}&redirect_uri=/verified&state={{state}}" id="{{serviceId}}" class="panel"></iframe>
 		{{/each}}
 	</div>
 </body>
